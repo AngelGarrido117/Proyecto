@@ -10,7 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import bean.persona;
+import bean.alumno;
+import bean.profesor;
 
 @WebServlet(name = "control", urlPatterns = {"/Control"})
 public class control extends HttpServlet {
@@ -21,8 +22,8 @@ public class control extends HttpServlet {
 
         String opcion = request.getParameter("boton");
 
-        if (opcion.equals("alta")) {
-            persona p = new persona();
+        if (opcion.equals("Alta Alumno")) {
+            alumno p = new alumno();
             p.setNombre(request.getParameter("nombre"));
             p.setGenero(request.getParameter("genero"));
             p.setEdad(Integer.parseInt(request.getParameter("edad")));
@@ -30,22 +31,22 @@ public class control extends HttpServlet {
             response.sendRedirect("respuesta.jsp?respuesta=" + p.getRespuesta());
         }
 
-        if (opcion.equals("baja")) {
-            persona p = new persona();
+        if (opcion.equals("Baja Alumno")) {
+            alumno p = new alumno();
             p.setNombre(request.getParameter("nombre"));
             p.eliminar();
             response.sendRedirect("respuesta.jsp?respuesta=" + p.getRespuesta());
         }
 
-        if (opcion.equals("consulta")) {
-            persona p = new persona();
+        if (opcion.equals("Consultar Alumno")) {
+            alumno p = new alumno();
             p.setNombre(request.getParameter("nombre"));
             p.consulta();
             response.sendRedirect("respuesta.jsp?respuesta=" + p.getRespuesta());
         }
     
     if (opcion.equals("consultar")) {
-    persona p = new persona();
+    alumno p = new alumno();
     p.setNombre(request.getParameter("nombre"));
     p.consulta(); // usar el método que ya tienes
     
@@ -58,7 +59,29 @@ public class control extends HttpServlet {
         response.sendRedirect("respuesta.jsp?respuesta=" + p.getRespuesta());
     }
 }
-
+    ///CONTROL PARA EL PROFESOR
+     if (opcion.equals("Alta Profesor")) {
+            profesor p = new profesor();
+            p.setNombre(request.getParameter("nombre"));
+            p.setGenero(request.getParameter("genero"));
+            p.setEdad(Integer.parseInt(request.getParameter("edad")));
+            p.guardar();
+            response.sendRedirect("respuesta.jsp?respuesta=" + p.getRespuesta());
+        }
+     
+     if (opcion.equals("Baja Profesor")) {
+            profesor p = new profesor();
+            p.setNombre(request.getParameter("nombre"));
+            p.eliminar();
+            response.sendRedirect("respuesta.jsp?respuesta=" + p.getRespuesta());
+        }
+     
+      if (opcion.equals("Consultar Profesor")) {
+            profesor p = new profesor();
+            p.setNombre(request.getParameter("nombre"));
+            p.consulta();
+            response.sendRedirect("respuesta.jsp?respuesta=" + p.getRespuesta());
+      }
     }
     
     @Override

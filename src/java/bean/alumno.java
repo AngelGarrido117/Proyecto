@@ -12,7 +12,7 @@ import java.sql.ResultSet;
  *
  * @author garri
  */
-public class persona {
+public class alumno {
     
 private String nombre, genero, respuesta;
 private int edad, opcion;
@@ -64,7 +64,7 @@ private int edad, opcion;
 
         if (c != null) {
             // Verificar si el nombre ya existe (clave primaria)
-            PreparedStatement check = c.prepareStatement("SELECT * FROM persona WHERE nombre = ?");
+            PreparedStatement check = c.prepareStatement("SELECT * FROM alumno WHERE nombre = ?");
             check.setString(1, getNombre());
             ResultSet rs = check.executeQuery();
 
@@ -72,7 +72,7 @@ private int edad, opcion;
                 respuesta = "El nombre '" + getNombre() + "' ya está registrado.";
             } else {
                 // Insertar nueva persona
-                PreparedStatement ps = c.prepareStatement("INSERT INTO persona VALUES (?, ?, ?)");
+                PreparedStatement ps = c.prepareStatement("INSERT INTO alumno VALUES (?, ?, ?)");
                 ps.setString(1, getNombre());
                 ps.setInt(2, getEdad());
                 ps.setString(3, getGenero());
@@ -80,7 +80,7 @@ private int edad, opcion;
                 ps.executeUpdate();
                 ps.close();
 
-                respuesta = "Persona agregada correctamente.<br><a href='index.html'>Regresar</a>";
+                respuesta = "Alumno agregado correctamente.<br><a href='index.html'>Regresar</a>";
             }
 
             rs.close();
@@ -102,19 +102,19 @@ private int edad, opcion;
         Connection c = Conexion.conectar(); // usamos tu clase Conexion
         
         if (c != null) {
-            PreparedStatement check = c.prepareStatement("SELECT * FROM persona WHERE nombre = ?");
+            PreparedStatement check = c.prepareStatement("SELECT * FROM alumno WHERE nombre = ?");
             check.setString(1, getNombre());
             ResultSet rs = check.executeQuery();
             
             if (rs.next()) {
-                PreparedStatement ps = c.prepareStatement("DELETE FROM persona WHERE nombre = ?");
+                PreparedStatement ps = c.prepareStatement("DELETE FROM alumno WHERE nombre = ?");
                 ps.setString(1, getNombre());
                 ps.executeUpdate();
                 ps.close();
                 
-                respuesta = "Persona eliminada correctamente.<br><a href='index.html'>Regresar</a>";
+                respuesta = "alumno eliminado correctamente.<br><a href='index.html'>Regresar</a>";
             } else {
-                respuesta = "No se encontró la persona con el nombre '" + getNombre() + "'.";
+                respuesta = "No se encontró a el alumno con el nombre '" + getNombre() + "'.";
             }
             
             rs.close();
@@ -136,7 +136,7 @@ private int edad, opcion;
         Connection c = Conexion.conectar();
         
         if (c != null) {
-            PreparedStatement ps = c.prepareStatement("SELECT * FROM persona WHERE nombre = ?");
+            PreparedStatement ps = c.prepareStatement("SELECT * FROM alumno WHERE nombre = ?");
             ps.setString(1, getNombre());
             ResultSet rs = ps.executeQuery();
             
@@ -145,13 +145,13 @@ private int edad, opcion;
                 this.edad = rs.getInt("edad");
                 this.genero = rs.getString("genero");
                 
-                respuesta = "Persona encontrada:<br>" +
+                respuesta = "Alumno encontrado:<br>" +
                            "Nombre: " + getNombre() + "<br>" +
                            "Edad: " + this.edad + "<br>" +
                            "Genero: " + this.genero + "<br>" +
                            "<a href='index.html'>Regresar</a>";
             } else {
-                respuesta = "No se encontró la persona con el nombre '" + getNombre() + "'.";
+                respuesta = "No se encontró al alumno con el nombre '" + getNombre() + "'.";
             }
             
             rs.close();
